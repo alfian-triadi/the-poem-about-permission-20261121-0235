@@ -27,6 +27,10 @@ out_path = os.path.join(OUT_DIR, "entry.txt")
 with open(out_path, "w", encoding="utf-8", newline="\n") as f:
     f.write(POEM)
 
-# Confirm the file is byte for byte the poem beside this file.
+# Confirm the file is byte for byte the poem beside this file, then report
+# the entry's size: the gate allows 1 to 280 characters.
 with open(out_path, "rb") as f:
     assert f.read() == POEM.encode("utf-8"), "entry.txt mismatch"
+with open(out_path, encoding="utf-8") as f:
+    assert f.read() == POEM, "entry.txt round-trip mismatch"
+print(f"Wrote {out_path}: {len(POEM)} characters")
